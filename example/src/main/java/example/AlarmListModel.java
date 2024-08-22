@@ -1,8 +1,6 @@
-package example;
-
 import javax.swing.*;
 
-public class AlarmListModel extends AbstractListModel<Alarm> {
+public class AlarmListModel extends AbstractListModel<String> {
     private final AlarmManager alarmManager;
 
     public AlarmListModel(AlarmManager alarmManager) {
@@ -15,11 +13,12 @@ public class AlarmListModel extends AbstractListModel<Alarm> {
     }
 
     @Override
-    public Alarm getElementAt(int index) {
-        return alarmManager.getAlarms().get(index);
+    public String getElementAt(int index) {
+        Alarm alarm = alarmManager.getAlarms().get(index);
+        return alarm.formatAlarm();  // Usa o método formatAlarm para exibir a string formatada
     }
 
     public void update() {
-        fireContentsChanged(this, 0, getSize());
+        fireContentsChanged(this, 0, getSize() - 1);
     }
 }
